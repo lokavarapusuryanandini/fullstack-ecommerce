@@ -5,6 +5,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import imageTobase64 from '../helpers/imageTobase64';
 import SummaryApi from '../common';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const [showPassword,setShowPassword] = useState(false)
@@ -16,6 +17,8 @@ const SignUp = () => {
       confirmPassword : "",
       profilePic : "",
   })
+
+  const navigate = useNavigate()
 
   const handleOnChange = (e) =>{
       const { name , value } = e.target
