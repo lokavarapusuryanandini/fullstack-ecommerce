@@ -49,7 +49,7 @@ const SignUp = () => {
   const handleSubmit = async(e) =>{
     e.preventDefault()
 
-    if(data.password !== data.confirmPassword) throw new Error('check password and confirm password');
+    if(data.password === data.confirmPassword) {
     const resp = await fetch(SummaryApi.signUP.url, {
         method: SummaryApi.signUP.method,
         headers: {
@@ -68,6 +68,9 @@ const SignUp = () => {
     if(dataApi.error){
         toast.error(dataApi.message)
     }
+} else {
+    toast.error("Please check password and confirm password");
+}
   }
 
   return (

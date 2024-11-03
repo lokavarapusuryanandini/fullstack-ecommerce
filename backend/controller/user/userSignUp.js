@@ -36,7 +36,7 @@ async function userSignUp(req, res) {
     }
 
     // Create new user
-    const payload = { ...req.body, password: hashPassword };
+    const payload = { ...req.body, password: hashPassword, role: 'GENERAL' };
     const user = await UserModel.create(payload);
 
     // Send success response
