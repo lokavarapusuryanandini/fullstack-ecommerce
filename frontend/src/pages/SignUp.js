@@ -4,6 +4,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import imageTobase64 from '../helpers/imageTobase64';
+import SummaryApi from '../common';
 
 const SignUp = () => {
   const [showPassword,setShowPassword] = useState(false)
@@ -43,7 +44,27 @@ const SignUp = () => {
 
 
   const handleSubmit = async(e) =>{
-      e.preventDefault()
+    e.preventDefault()
+
+    if(data.password !== data.confirmPassword) throw new Error('check password and confirm password');
+    const resp = await fetch(SummaryApi.signUP.url, {
+        method: SummaryApi.signUP.method,
+        headers: {
+            'content-type':'application/json',
+        },
+        body: JSON.stringify(data)
+    });
+
+    const dataApi = await resp.json()
+
+    if(dataApi.success){
+        toast.success(dataApi.message)
+        navigate("/login")
+    }
+
+    if(dataApi.error){
+        toast.error(dataApi.message)
+    }
   }
 
   return (
